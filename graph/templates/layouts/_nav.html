@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'Home' %}"> Salut !</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Jeux sympas
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'double_pendulum' %}">Double pendule</a>
+          <a class="dropdown-item" href= "{% url 'game_of_life' %}" >Jeu de la vie</a>
+          <a class="dropdown-item" href= "{% url 'audio' %}" >Audio</a>
+          <a class="dropdown-item" href= "{% url 'random_graph' %}" >Random graph</a>
+          <a class="dropdown-item" href= "{% url 'snake' %}" >Snake</a>
+          <a class="dropdown-item" href= "{% url 'snake_online' %}" >Online snake</a>
+          <a class="dropdown-item" href= "{% url 'matter' %}" >Matter.js</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'pos_iss' %}">ISS's position </a>
+      </li>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'youtube' %}">Vidéos Youtube </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'voir_contacts' %}">Photos persos</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Simulation Batterie
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href= "{% url 'settings' %}" >Settings</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Ajouter une donnée
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+  
+          <a class="dropdown-item" href= "{% url 'add_data' %}" >Ajouter une vidéo Youtube</a>
+          <a class="dropdown-item" href= "{% url 'image' %}" >Ajouter une photo perso</a>
+    
+        </div>
+      </li>
+
+    </ul>
+    
+  </div>
+</nav>

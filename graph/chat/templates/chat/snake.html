@@ -1,0 +1,52 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'chat/css/snake.css' %}">
+<div class = "container">
+<div> Ce snake est fait pour être joué à 2. Il est basé sur le principe de Websocket. Si deux personnes lancent le jeu en même ils peuvent interagir (se manger, se bloquer, etc...)</div>
+	<div class="row">
+		<div class="col-6 m-auto">
+			<div class="form-group text-center">
+		        <label>difficulté : <span class = "font-weight-bold" id = "difficulté"></span> fps</label>
+		        <input type="range" class="form-control-range" max='100' min='5' id="fps" value = "10">
+	        </div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12 text-center p-1">
+			<div id='myContainer'></div>
+		</div>
+		<div class = "col-12 text-center p-1">
+			<button class = "btn btn-danger" id = "up">Up</button>
+		</div>
+		<div class = "col-6 text-right p-1">
+			<button class = "btn btn-danger" id = "left">Left</button>
+		</div>
+		<div class = "col-6 text-left p-1">
+			<button class = "btn btn-danger" id = "right">Right</button>
+		</div>
+		<div class = "col-12 text-center p-1">
+			<button class = "btn btn-danger" id = "down">Down</button>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	let img = "{% static 'batterie/images/boloss.png' %}"
+	$("#difficulté").text($("#fps").val());
+	$("#fps").click(function(){
+	      $("#difficulté").text($("#fps").val());
+	    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+<script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>  
+<script type="text/javascript" src="{% static 'chat/js/snake.js' %}"></script>
+
+
+
+{% endblock %}

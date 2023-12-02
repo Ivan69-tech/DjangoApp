@@ -1,0 +1,11 @@
+.MyGrid {
+    text-align: center;
+    display: grid;
+    grid-template: 1.6em / 1fr 1fr;
+    grid-gap: 10px;
+}
+
+.phys-canvas {
+	width: 1000px;
+	height: 1000px;
+}

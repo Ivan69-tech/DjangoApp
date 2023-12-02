@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+	<div class = "container-md">
+
+		<form action="{% url 'suppr_data' %}" method="post">
+		  {% csrf_token %}
+
+		  <div class="form-group">
+		    <input type="text" name = "suppr" class="form-control" id="exampleFormControlInput1" placeholder="Titre de la vidéo que tu veux supprimer (nom exact)">
+		  </div>
+		  
+		  <div class="form-group">
+		    <input type="submit" value="Submit"/>
+		  </div>
+		</form>
+
+	</div>
+
+{% endblock %}

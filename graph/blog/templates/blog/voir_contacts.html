@@ -1,0 +1,74 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+	
+	<div class = "container-fluid">
+
+		<div class="card card-body text-white bg-secondary text-center" style="font-size: 1.5em;">
+            Toutes les photos en ligne :
+        </div>
+        <br>
+
+		<div class = "row">
+			{% for contact in contacts %}
+				<div class = "col-sm-4 p-3 text-center">
+					
+
+					    <p>
+					    	<a href = "{{ contact.photo.url }}" data-lightbox= "{{ contact.photo.url }}">
+					    	<img class = "img-thumbnail" src="{{ contact.photo.url }}" style="height: 250px; width: auto;" />
+					    	</a>
+					    </p>
+					    
+					    <p>
+						    <button class="btn btn-secondary w-75" type="button" data-toggle="collapse" data-target="#id{{ forloop.counter }}" aria-expanded="false">
+		    				Commentaires
+		  					</button>
+	  					</p>
+
+	  					<div class="collapse" id="id{{ forloop.counter }}">
+							  <div class="card card-body">
+							    <p>
+							   		{{ contact.description }}
+							   	</p>
+							    <p>
+									<button class="btn btn-secondary delete_button" id = "{{contact.id}}">
+			    					Delete photo</button>
+		  						 </p>
+							  </div>
+						</div>
+				</div>
+
+			{% endfor %}
+		</div>
+		
+		<div class = "row text-center">
+            
+            <div class = "col-12"> 
+                <a class="btn btn-secondary w-100" href="{% url 'image' %}" role="button">Ajouter sa propre photo</a>
+            </div>
+            
+        </div>
+
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    $(".delete_button").click(function() {
+		        var id = $(this).attr('id');
+		        var url = "{% url 'suppr_photo' 12345 %}".replace(/12345/, id.toString());
+		        $.ajax({
+		            url: url,
+		            success: function(response){
+		            	window.location.reload(false);
+		            	console.log("ok");
+		            }
+		        });
+		    });
+
+		});
+	</script>
+
+{% endblock %}

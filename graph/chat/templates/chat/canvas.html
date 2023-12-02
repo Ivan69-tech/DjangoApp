@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="row">
+	<div class="col-12 text-center p-1">
+		<div id='myContainer'></div>
+	</div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+<script src="{% static 'chat/js/sketch.js' %}"></script>
+
+{% endblock %}

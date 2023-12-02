@@ -1,0 +1,57 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+	<div class="row ">
+		<div id="graph" class="col-12 w-100">
+			Tracer un graphe aléatoire
+		</div>
+		<div id="graph" class="col-12 w-100">
+			<span id="div">{{ div | safe }}</span>
+		</div>
+		<div class="col-12 text-center">
+			<button type="button" class="btn btn-danger m-3" id="refresh">Refresh</button>	
+		</div>
+	</div>
+</div>
+
+<span id="script"> {{ script | safe}} </span>
+
+<script type="text/javascript">
+
+$("#refresh").click(function(){
+	var form = new FormData();
+	form.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+	$.ajax({
+	    url : "{% url 'random_graph' %}",
+	    type : 'POST',
+	    data : form,
+	    processData: false,
+	    contentType: false,
+	    success: function(data) {
+	        div = data["div"];
+	        script = data["script"]
+	        $("#div").html(div);
+	        $("head").append(script);
+
+		},		
+	    
+	});
+});
+
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

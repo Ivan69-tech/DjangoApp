@@ -1,0 +1,170 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+  <form action="{% url "settings" %}" method="post">
+    {% csrf_token %}
+
+    
+
+    <div class = "row p-3">
+      <div class = "col-md-4 p-3">
+
+        <div class="card bg-secondary text-white h-100">
+          <div class="card-body">
+            <h5 class="card-title">Configuration du pack batterie</h5>
+            <hr>
+            <p class = "card-text align-items-center">
+
+              <div class="form-group">
+                <label>Type de modules</label>
+                <select type = "text" name = "type_mod" class="form-control text-center" placeholder = "Type de module">
+                  <option class = "text-center">JH4-3P</option>
+                  <option>JH4-2P</option>
+                  <option>JH4-4P</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Nombres de modules par rack</label>
+                <input type="number" name = "nb_mod" class="form-control text-center" placeholder="Nombre de modules" value = 14>
+              </div>
+
+              <div class="form-group">
+                <label>Nombres de racks</label>
+                <input type="number" name = "nb_rack" class="form-control text-center" placeholder="Nombres de rack" value = 4>
+              </div>
+
+              <div class="form-group">
+                <label>C-rate du cycle</label>
+                <input type="number" name = "c_rate" class="form-control text-center" placeholder="C-rate du cycle" value = 1>
+              </div>
+
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class = "col-md-4 p-3">
+
+        <div class="card bg-secondary text-white h-100">
+          <div class="card-body">
+            <h5 class="card-title">Gestion de la date et du temps de simulation</h5>
+            <hr>
+            <p class =" card-text">
+
+             <div class="form-group">
+              <label>Nombre de jours de simulation</label>
+              <input type="number" name = "nb_jour" class="form-control text-center" placeholder="Nombre de jours" value = 1>
+            </div>
+
+            <div class="form-group">
+              <label>Date du premier jour de la simulation</label>
+              <input type="date" name = "jour_deb" class="form-control text-center" placeholder="Date du cycle" value = "2019-01-05">
+            </div>
+
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class = "col-md-4 p-3">
+
+        <div class="card bg-secondary text-white h-100">
+          <div class="card-body">
+            <h5 class="card-title">Caractéristiques du shelter</h5>
+            <hr>
+            <p class =" card-text">
+
+              <div class="form-group">
+                <label>Coefficient d'échange thermique surfacique de la paroi du shelter en W/m2/K</label>
+                <input type="number" name = "h" class="form-control text-center" placeholder="Coefficient d'échange thermique surfacique de la paroi du shelter en W/m2/K" value = 55>
+              </div>
+
+              <div class="form-group">
+                <label>Masse du shelter en tonnes</label>
+                <input type="number" name = "mass" class="form-control text-center" placeholder="Masse du shelter à vide en tonnes" value = 30>
+              </div>
+
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class = "row p-3">
+      <div class = "col-md-6 p-3">
+
+        <div class="card bg-secondary text-white h-100">
+          <div class="card-body">
+            <h5 class="card-title">Setpoints de température : air intérieur</h5>
+            <hr>
+            <p class =" card-text">
+
+              <div class="form-group">
+                <label>Setpoint de température début de chauffage</label>
+                <input type="number" name = "set_min_c" class="form-control text-center" placeholder="Setpoint début chauffage" value = 17>
+              </div>
+
+              <div class="form-group">
+                <label>Setpoint de température fin de chauffage</label>
+                <input type="number" name = "set_max_c" class="form-control text-center" placeholder="Setpoint fin chauffage" value = 21>
+              </div>
+
+              <div class="form-group">
+                <label>Setpoint de température fin de climatisation</label>
+                <input type="number" name = "set_min_f" class="form-control text-center" placeholder="Setpoint fin climatisation" value = 22>
+              </div>
+
+              <div class="form-group">
+                <label>Setpoint de température début de climatisation</label>
+                <input type="number" name = "set_max_f" class="form-control text-center" placeholder="Setpoint début climatisation" value = 25>
+              </div>
+
+            </p>
+          </div>
+        </div>
+
+      </div>  
+    
+
+    <div class = "col-md-6 p-3">
+
+      <div class="card bg-secondary text-white h-100 align-middle">
+        <div class="card-body align-middle">
+          <h5 class="card-title">Puissance clim et chauffage</h5>
+          <hr>
+          <p class =" card-text">
+
+            <div class="form-group">
+              <label>Puissance de la clim en tonnes (Unité des US)</label>
+              <input type="number" name = "Pclim" class="form-control text-center" placeholder="Puissance de la clim en Tonne" value = 3>
+            </div>
+
+            <div class="form-group">
+              <label>Puissance du chauffage en Watt</label>
+              <input type="number" name = "Pchal" class="form-control text-center" placeholder="Puissance du chauffage en W" value = 4>
+            </div>
+
+          </p>
+        </div>
+      </div>
+
+    </div>  
+ 
+    <div class = "col-md-12 text-center p-3">
+      <div class="form-group">
+          <input class="btn btn-secondary" type="submit" value="Simuler"/>
+      </div>
+    </div>
+
+  </form>
+
+   
+ </style>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<img src = "{% static 'blog/Roger.jpg' %}">
+
+<p id = "Rog"> Le doigt de Dieu. Personne ne battra Roger aux nombres de Grand Chelems gagnés.  </p>
+
+<style type="text/css">
+	
+	img {
+
+		width: auto;
+		height: 50%;
+		display: block;
+    	margin-left: auto;
+    	margin-right: auto 
+	}
+
+	#Rog{
+		text-align: center;
+	}
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'layouts/base.html' %}
+{% load my_extras %}
+
+
+
+{% block content %}
+	<div class = "container">
+
+   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+   <div class = "row">
+   		<div class = "col-sm-12 p-3 text-center">
+		    <div class = "container-md text-center">
+			    <p>
+				    Juste des blagues au hasard <br><br>
+			    </p>
+		    </div>
+		    <h4 id = "joke2"> </h4> </p>
+		</div>
+	</div>
+	
+	<div class = "row h-10">
+		<div class = "col-sm-12 p-3 text-center">
+		    <a id = "bouton2" class="btn btn-secondary w-50" href="#" role="button">New french joke</a>
+		</div>
+	</div>
+
+	<hr>
+
+   <div class = "row">
+   		<div class = "col-sm-12 p-3 text-center">
+		    <div class = "container-md text-center">
+			    <p>
+				    Là t'es des blagues sur Chuck Norris, genre le gars est considéré comme un Dieu (en vrai c'est juste un acteur badass). 
+				    Mais pour rigoler les gens trouvent des fun facts pour montrer à quel point il est Badass (Bon c'est surtout connus aux US) <br><br>
+			    </p>
+		    </div>
+		    <h4 id = "joke"> </h4> 
+		</div>
+	</div>
+	
+	<div class = "row h-10">
+		<div class = "col-sm-12 p-3 text-center">
+		    <a id = "bouton" class="btn btn-secondary w-50" href="#" role="button">New Chuck Norris joke</a>
+		</div>
+	</div>
+
+	
+
+    
+
+
+    <script type="text/javascript">
+    	var dico = JSON.parse('{{ dico | escapejs }}');
+    	var blague = dico["blague"]
+		var blague2 = dico["blague2"]
+
+    	document.getElementById("joke").textContent = blague;
+    	document.getElementById("joke2").textContent = blague2;
+		
+
+		$("#bouton").click(function(){
+			$.ajax({
+			    url: '{% url "chucknorris_json" %}',
+			    type: 'get',
+			    success: function(data) {
+			        var new_joke = data["value"];
+			        document.getElementById("joke").textContent = new_joke;  			
+			    		},	
+			    
+			    failure: function(data) { 
+			        alert('Got an error dude');
+			    		}
+			});	
+		});
+
+		$("#bouton2").click(function(){
+			$.ajax({
+			    url: '{% url "blague2_json" %}',
+			    type: 'get',
+			    success: function(data) {
+			        var new_joke = data["value"];
+			        document.getElementById("joke2").textContent = new_joke;  			
+			    		},	
+			    
+			    failure: function(data) { 
+			        alert('Got an error dude');
+			    		}
+			});	
+		});
+		
+	</script>
+	</div>
+    
+{% endblock %}

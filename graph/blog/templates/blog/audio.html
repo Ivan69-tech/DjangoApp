@@ -1,0 +1,132 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<h3 class = "text-center p-3"> <span id='ici'>Dis une couleur en anglais et envoie.</span> </h3>
+
+<div class = "container">
+	<div class = "row">
+		<div class = "col-4 p-3 text-center">
+			<button type="button" class="btn btn-danger" id="francais">Francais</button>
+		</div>
+		<div class = "col-4 p-3 text-center">
+			<h4>Langue choisie : <span id="langue">Anglais </span></h4>
+		</div>
+		<div class = "col-4 p-3 text-center">
+			<button type="button" class="btn btn-danger" id="anglais">Anglais</button>
+		</div>
+		<div class = "col-4 p-3">
+			<button type="button" class="btn btn-primary w-100" id="start">Start audio</button>
+		</div>
+		<div class = "col-4 p-3 text-center">
+			<h4><span id="recordText"></span></h4>
+		</div>
+		<div class = "col-4 p-3">
+			<button type="button" class="btn btn-primary w-100" id="stop">Stop audio</button>
+		</div>
+		<div class = "col-12 p-3">
+			<audio class="w-100" id='recordedaudio'></audio>
+		</div>
+		<div class = "col-12 p-3">
+			<div id='myContainer'></div>
+		</div>
+		<div class = "col-12 p-3">
+			<button type="button" class="btn btn-primary w-100" id="Sendaudio">Send audio</button>
+		</div>
+		<div class = "col-12 p-3 text-center">
+			<button type="button" class="btn btn-primary" id="reset">Reset</button>
+		</div>
+		<div class = "col-12 p-3">
+			Traduction : <span id="traduction"></span>
+		</div>
+		
+		
+
+
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/addons/p5.sound.js"></script>
+<script type="text/javascript">
+
+let mic, recorder, soundFile, soundBlob;
+let state = 0;
+btn_start = $("#start");
+btn_stop = $("#stop");
+
+btn_start.prop('disabled', false);
+btn_stop.prop('disabled', true);
+
+function setup() {
+	mic = new p5.AudioIn();
+	mic.start();
+	recorder = new p5.SoundRecorder();
+	recorder.setInput(mic);
+	soundFile = new p5.SoundFile();
+}
+
+btn_start.click(function(){
+	userStartAudio();
+	recorder.record(soundFile);
+	btn_start.prop('disabled', true);
+	btn_stop.prop('disabled', false);
+	$("#recordText").text("Vaz-y parle");
+
+});
+
+btn_stop.click(function(){
+	
+	recorder.stop();
+	setTimeout(function (){
+		soundBlob = soundFile.getBlob();
+		recordedaudio.src = URL.createObjectURL(soundBlob);
+		recordedaudio.controls = true;
+		recordedaudio.autoplay = true;
+	}, 50)
+	btn_start.prop('disabled', false);
+	btn_stop.prop('disabled', true);
+	$("#recordText").text("Parle plus");
+});
+
+var langue = "anglais" 
+
+$("#francais").click(function(){
+	$("#langue").text("Français");
+	langue = "francais"
+});
+
+$("#anglais").click(function(){
+	$("#langue").text("Anglais");
+	langue = "anglais"
+});
+
+$("#Sendaudio").click(function(){
+	soundBlob = soundFile.getBlob()
+	var form = new FormData();
+	form.append('audio', soundBlob);
+	form.append('langue', langue);
+	form.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+    $.ajax({
+        url : "{% url 'audio_blob' %}",
+        type : 'POST',
+        processData: false,
+		contentType: false,
+        data : form,
+        enctype: 'multipart/form-data',
+        success: function(data) {
+	        text = data["Text"];
+	        $("#traduction").text(text);
+	        $("body").css("background-color", text);
+
+		},		
+        
+    });
+});
+
+
+ </script>
+
+{% endblock %}

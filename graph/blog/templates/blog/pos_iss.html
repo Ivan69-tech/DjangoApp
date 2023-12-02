@@ -1,0 +1,98 @@
+{% extends 'layouts/base.html' %}
+{% load my_extras %}
+
+
+{% block content %}
+
+	<div class = "container-md">
+
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+	   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	   crossorigin=""/>
+	   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+	   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+	   crossorigin=""></script>
+	   
+
+	   <div class = "row">
+
+	   		<div class = "container text-justify">
+			    <p> L'ISS (International Space Station) est la station où l'on envoie des astronautes (comme  Thomas Pesquet) pour faire des expériences scientifiques. Elle fait le tour de la Terre en 1h30. Sur cette carte tu peux voir où elle se trouve en ce moment. Toutes les secondes on actualise la position pour visualiser la trajectoire.</p>
+			 </div>
+			   
+
+	   		<div class = "col-sm-12 p-3 text-center">
+			    <p> Latitude de l'ISS : <span id = "latitude"> </span>° </p>
+			    <p> Longitude de l'ISS : <span id = "longitude"> </span>° </p> 
+			</div>
+		</div>
+		
+		<div class = "row h-50">
+			<div class = "col-sm-12 p-3 text-center">
+			    <div id="mapid" style= "height: 100%;"></div>
+			</div>
+		</div>
+
+
+	    
+
+
+	    <script type="text/javascript">
+	    	//const lat = -43.623285263128;
+	    	//const long = -64.666219726354; 
+
+	    	const pos = JSON.parse('{{ pos | escapejs }}');
+	    	const attribution = '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors';
+		    const TileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+		    const tiles = L.tileLayer(TileUrl, { attribution });
+		    const lat = pos["latitude"];
+	    	const long = pos["longitude"];
+	    	const mymap = L.map('mapid').setView([lat, long], 4);
+	    	tiles.addTo(mymap)
+	    	
+	    	document.getElementById("latitude").textContent = lat.toFixed(4);
+	    	document.getElementById("longitude").textContent = long. toFixed(4);
+
+	    	function getISS() {
+		    	
+		    	L.marker([lat, long]).addTo(mymap);
+
+		    	
+			}
+	    	
+
+			getISS();
+			
+			function loop(){
+				$.ajax({
+				    url: '{% url "get_ISS_pos" %}',
+				    type: 'get',
+				    success: function(data) {
+				        function new_pos(){
+					        console.log(data["latitude"]);
+					        var lat = data["latitude"];
+					        var long = data["longitude"];
+
+					        L.marker([lat, long]).addTo(mymap);
+					        document.getElementById("latitude").textContent = lat.toFixed(4);
+		    				document.getElementById("longitude").textContent = long. toFixed(4);
+		    			}
+		    			new_pos();
+
+		    			
+				    },	
+				    failure: function(data) { 
+				        alert('Got an error dude');
+				    },
+				    complete: function() {
+				    	setTimeout(loop, 1000);
+				    }
+				});	
+			}
+
+	    	setInterval(loop(), 1000);
+			
+		</script>
+	</div>
+    
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class = "container">
+        
+        <link rel="stylesheet" href="{% static 'blog/css/style_video.css' %}">
+        
+        <div class="container-md">
+
+            <div class="bg-secondary text-center text-light border rounded p-2" style="font-size: 1.5em;">
+                Hey ! 
+            </div>
+            <hr>
+            <br>
+      
+            {% for post in post %}
+                
+                <div class =  "row"> 
+                    <div class = "col-lg-7 col-6 text-left my-auto"> {{ post.title }} </div>
+
+                    <div class = "col-lg-5 col-6 text-right"> 
+                        <div class = "row">
+                            <div class = "col-lg-6 col-12">
+                                <a class="btn btn-secondary w-100 h-100 m-1" href="{{ post.body }}" role="button"> Voir la vidéo</a>
+                            </div>
+                            <div class = "col-lg-6 col-12">
+                                <a class="btn btn-secondary text-light w-100 h-100 m-1 delete_button" id = "{{ post.id }}" role="button"> Supprimer la vidéo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+
+            <br><br>
+            <div class = "row text-center">
+                <div class = "col-lg-6 col-12 my-1 my-lg-0"> 
+                    <a class="btn btn-secondary w-75" href="{% url 'add_data' %}" role="button">Ajouter sa propre vidéo</a>
+                </div>
+                
+                <div class = "col-lg-6 col-12 my-1 my-lg-0"> 
+                    <a class="btn btn-secondary w-75" href="https://www.youtube.com/watch?v=BydSwOPuhF0" role="button">Ou regarder un truc con</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".delete_button").click(function() {
+                var id = $(this).attr('id');
+                var url = "{% url 'suppr_video' 12345 %}".replace(/12345/, id.toString());
+                $.ajax({
+                    url: url,
+                    success: function(response){
+                        window.location.reload(false);
+                        console.log("ok");
+                    }
+                });
+            });
+
+        });
+    </script>
+    
+{% endblock %}
+    
+        
+        
+ 
+

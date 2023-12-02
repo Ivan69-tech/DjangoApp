@@ -1,0 +1,96 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'batterie/css/pendulum.css' %}">
+
+<div class = "container">
+  <div class = "MyGrid">
+    <div class = "MyForm">
+      <form id='set_variables_form'>
+
+        <div class="form-group text-center">
+          <label for="mass1">Masse 1 : <span class = "font-weight-bold" id = "mass1_value"></span> kg</label>
+          <input type="range" class="form-control-range" max='50' min='1' id="mass1" value = "10">
+        </div>
+
+        <div class="form-group text-center">
+          <label for='mass2'>Masse 2 : <span class = "font-weight-bold" id = "mass2_value"></span> kg</label>
+          <input class  = "form-control-range" id='mass2' max='50' min='1' type='range' value='10'>
+        </div>
+    
+        <div class="form-group text-center">
+          <label for='Phi1'>Angle de départ 1er brun : <span class = "font-weight-bold" id = "phi1_value"></span> °</label>
+          <input class  = "form-control-range" id='Phi1' max='90' min='0' type='range' value='50'>
+        </div>
+
+        <div class="form-group text-center">
+          <label for='Phi2'>Angle de départ 2nd brun : <span class = "font-weight-bold" id = "phi2_value"></span> °</label>
+          <input class  = "form-control-range" id='Phi2' max='90' min='0' type='range' value='35'>
+        </div>
+
+        <div class="form-group text-center">
+          <label for='time'>Time : <span class = "font-weight-bold" id = "time_value"></span></label>
+          <input class  = "form-control-range" id='time' max='1' min='0.05' step = "0.01" type='range' value='0.07'>
+        </div>
+
+        <div class="form-group text-center">
+          <label for='longueur'>Proportion du brin 1 : <span class = "font-weight-bold" id = "longueur_value"></span> %</label>
+          <input class  = "form-control-range" id='longueur' max='100' min='0' step = "1" type='range' value='50'>
+        </div>
+
+        <div class="form-group text-center">
+          <input class="btn btn-primary" type='submit' value='Start Simulation'>
+        </div>
+      </form>
+    </div>
+
+    
+    <div class = "Pendulum" id = "Pendulum">
+      <canvas class='phys-canvas' id='myCanvas'></canvas>
+    </div>
+  </div>
+</div>
+
+
+  <script src="{% static 'batterie/js/pendulum.js' %}" type='text/javascript'></script>
+  <script type="text/javascript">
+
+
+    document.getElementById("mass1_value").textContent = $("#mass1").val();
+
+    $("#mass1").click(function(){
+      document.getElementById("mass1_value").textContent = $("#mass1").val();
+    });
+
+    document.getElementById("mass2_value").textContent = $("#mass2").val();
+
+    $("#mass2").click(function(){
+      document.getElementById("mass2_value").textContent = $("#mass2").val();
+    });
+
+    document.getElementById("phi1_value").textContent = $("#Phi1").val();
+    $("#Phi1").click(function(){
+      document.getElementById("phi1_value").textContent = $("#Phi1").val();
+    });
+
+    document.getElementById("phi2_value").textContent = $("#Phi2").val();
+    $("#Phi2").click(function(){
+      document.getElementById("phi2_value").textContent = $("#Phi2").val();
+    });
+
+    document.getElementById("time_value").textContent = $("#time").val();
+    $("#time").click(function(){
+      document.getElementById("time_value").textContent = $("#time").val();
+    });
+
+    document.getElementById("longueur_value").textContent = $("#longueur").val();
+    $("#longueur").click(function(){
+      document.getElementById("longueur_value").textContent = $("#longueur").val();
+    });
+
+    
+  </script>
+  
+{% endblock %}

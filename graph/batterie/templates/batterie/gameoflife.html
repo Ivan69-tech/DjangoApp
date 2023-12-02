@@ -1,0 +1,70 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class = "container">
+	<div class = "row">
+		<div class = "col-12 my-3 text-justify">
+			Explication du jeu de la vie: au début t'as une grille avec des cases noires (dites vivantes) ou blanches (dites mortes).A chaque génération on regarde l'évolution : Si une cellules a plus de 3 voisines vivantes ou mortes elle meure, si elle a exactement 3 voisines vivantes elle devient vivante <br>
+			Explication très intéressantes du jeu de la vie <a href="https://www.youtube.com/watch?v=S-W0NX97DB0" target="_blank">ICI</a> <br> Commence par tracer ta grille. Dessine ta propre figure en cliquant sur les cases ou demande une figure aléatoire via le boutton. 
+		</div>
+		<div class = "col-6 col-lg-3 mt-2 text-center">
+			<button class = "btn btn-primary btn-block" id = "launch">Lance la simulation</button>
+			<button class = "btn btn-primary btn-block" id = "random">Grille aléatoire</button>
+		</div>
+		
+		<div class = "col-6 col-lg-3 mt-2 mb-5 text-center">
+			<button class = "btn btn-primary btn-block" id = "restart">Restart</button>
+			<button class = "btn btn-primary btn-block" id = "pause">Pause</button>
+		</div>
+
+		<div class = "col-12 col-lg-6 text-center">
+			<form id='form1'>
+
+		        <div class="form-group text-center">
+		          <label for="mass1">Resolution : <span class = "font-weight-bold" id = "res_value"></span> px</label>
+		          <input type="range" class="form-control-range" max='50' min='2' id="res" value = "10">
+		        </div>
+
+		        <div class="form-group text-center">
+		          <input class="btn btn-primary" type='submit' value='trace la grille'>
+		        </div>
+
+		    </form>
+		    	
+		    <form id='form2'>
+		        <div class="form-group text-center">
+		          <label for='mass2'>Vitesse : <span class = "font-weight-bold" id = "speed_value"></span> ms</label>
+		          <input class  = "form-control-range" id='speed' max='1000' min='5' type='range' value='10'>
+		        </div>
+
+		        <div class="form-group text-center">
+		          <input class="btn btn-primary" type='submit' value='Vitesse réglée'>
+		        </div>
+	      	</form>
+		</div>
+
+		<div class = " col-12 text-center">
+			<canvas id = "myCanvas"></canvas>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	    document.getElementById("res_value").textContent = $("#res").val();
+
+	    $("#res").click(function(){
+	      document.getElementById("res_value").textContent = $("#res").val();
+	    });
+
+	    document.getElementById("speed_value").textContent = $("#speed").val();
+
+	    $("#speed").click(function(){
+	      document.getElementById("speed_value").textContent = $("#speed").val();
+	    });
+	</script>
+	<script src = "{% static 'batterie/js/gameoflife.js' %}" ></script>
+</div>
+{% endblock %}
+
+
+
