@@ -1,5 +1,5 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.10-slim
+FROM --platform=linux/amd64 python:3.10-slim-buster as build
 
 # Allows docker to cache installed dependencies between builds
 COPY requirements.txt requirements.txt

@@ -1,3 +1,5 @@
+#!/bin/python3
+
 """
 Django settings for graph project.
 
