@@ -1,10 +1,21 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.10-slim-buster 
+# FROM arm32v7/python:3.10-buster
+
+# RUN apt-get update 
+# RUN apt-get install -y python3-numpy
+# RUN apt-get install -y python3-pandas
+
+FROM python:3.8
+
 
 # Allows docker to cache installed dependencies between builds
-COPY requirements.txt requirements.txt
 
-RUN sudo apt-get -y install cmake
+# RUN apt-get update 
+# RUN apt-get install -y python3-pandas
+COPY requirements.txt requirements.txt
+ 
+# RUN pip install --upgrade pip setuptools 
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Mounts the application code to the image
