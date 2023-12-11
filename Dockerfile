@@ -5,7 +5,7 @@
 # RUN apt-get install -y python3-numpy
 # RUN apt-get install -y python3-pandas
 
-FROM python:3.8
+FROM arm32v7/python:3.9-slim
 
 
 # Allows docker to cache installed dependencies between builds
@@ -16,7 +16,7 @@ COPY requirements.txt requirements.txt
  
 # RUN pip install --upgrade pip setuptools 
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --index-url=https://www.piwheels.org/simple --no-cache-dir -r requirements.txt
 
 # Mounts the application code to the image
 COPY . code
