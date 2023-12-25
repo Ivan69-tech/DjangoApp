@@ -26,9 +26,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "localhost", "ivandecharbo.pythonanywhere.com"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'sslserver',
     'django_extensions',
     'storages',
     'channels',
@@ -61,9 +61,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'graph.urls'
+
+
+
 
 TEMPLATES = [
     {
@@ -85,16 +89,23 @@ WSGI_APPLICATION = 'graph.wsgi.application'
 ASGI_APPLICATION = "graph.routing.application"
 
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-        },
-        "symmetric_encryption_keys": [SECRET_KEY],
-        "capacity": 4000,
-        "expiry": 1,
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
     },
 }
+
+
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+#         },
+#         "symmetric_encryption_keys": [SECRET_KEY],
+#         "capacity": 4000,
+#         "expiry": 1,
+#     },
+# }
 
 
 # Database
