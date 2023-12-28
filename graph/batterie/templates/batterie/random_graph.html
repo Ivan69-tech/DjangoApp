@@ -4,18 +4,17 @@
 {% block content %}
 <div class="container">
 	<div class="row ">
-		<div id="graph" class="col-12 w-100">
+		<div id="graph" class="col-12 text-center">
 			Tracer un graphe aléatoire
 		</div>
-		<div id="graph" class="col-12 w-100">
-			<span id="div">{{ div | safe }}</span>
-		</div>
+		
 		<div class="col-12 text-center">
 			<button type="button" class="btn btn-danger m-3" id="refresh">Refresh</button>	
 		</div>
 	</div>
 </div>
 
+<span id="div">{{ div | safe }}</span>
 <span id="script"> {{ script | safe}} </span>
 
 <script type="text/javascript">
@@ -31,7 +30,8 @@ $("#refresh").click(function(){
 	    contentType: false,
 	    success: function(data) {
 	        div = data["div"];
-	        script = data["script"]
+	        script = data["script"];
+					console.log(script);
 	        $("#div").html(div);
 	        $("head").append(script);
 

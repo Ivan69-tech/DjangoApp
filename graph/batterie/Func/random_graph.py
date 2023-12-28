@@ -9,7 +9,7 @@ from bokeh.models.annotations import Title
 def random_data(nbr_data):
     Y = [randint(1,100) for k in range(nbr_data)]
     X = [k for k in range(nbr_data)]
-    
+
     source = ColumnDataSource(dict(X=X, Y=Y))
 
     tools = [HoverTool(), BoxZoomTool(),PanTool(), ResetTool()]
@@ -30,7 +30,9 @@ def random_data(nbr_data):
     script, div = components(p)
 
     return {"script" : script,
-            "div": div}
+            "div": div,
+            "X" : X,
+            "Y": Y}
 
     
     

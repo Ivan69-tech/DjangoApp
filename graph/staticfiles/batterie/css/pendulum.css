@@ -1,0 +1,31 @@
+@media screen and (max-width: 768px)
+
+{
+.MyGrid {
+    text-align: center;
+    display: grid;
+    grid-template: 1fr 1fr / 100%;
+    grid-gap: 10px;
+    
+
+
+}
+}
+
+@media screen and (min-width: 768px)
+
+{
+.MyGrid {
+    text-align: center;
+    display: grid;
+    grid-template: 100% / 30% 70%;
+    grid-gap: 10px;
+    height:75%;
+}
+
+.MyForm {
+	text-align: center;
+
+}
+
+}

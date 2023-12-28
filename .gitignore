@@ -2,3 +2,4 @@ graph/venv/
 .env
 venv/
 graph/certificat/
+Dockerfile

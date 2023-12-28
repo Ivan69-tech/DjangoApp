@@ -126,10 +126,12 @@ def random_graph(request):
     
     div = res["div"]
     script = res["script"]
-    
-    # if request.method =='POST' :
-    #     return JsonResponse({"script" : script,
-    #                          "div": div})
+    X = res["X"]
+    Y = res["Y"]
+
+    if request.method =='POST' :
+        return JsonResponse({"script" : script,
+                             "div": div})
 
     return render(request, 'batterie/random_graph.html', locals())
 
