@@ -6,3 +6,5 @@ This is an application developped with Django, Python. You can find the followin
 5. Speak in your mic and the application traduce your sentence
 6. Multiplayer Snake game. You can kill each other (base on websocket)
 7. Simulation of a battery container temperature based on irradiation, external temperature, charge/discharge profile, SOC.
+
+This app is deployed on my raspberryPI. Find it here : https://ivan-app.fr
